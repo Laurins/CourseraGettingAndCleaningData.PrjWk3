@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Coursera: Getting and Cleaning Data - Project Week 3 </title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+
+</head>
+
+<body>
+<h1>Coursera: Getting and Cleaning Data - Project Week 3 </h1>
+
+<h2>Loading files into data.frames</h2>
+
+<p>This mainly is run_analysis.R, just lenty of comments and annotations.
+Let&#39;s start from readng all files into data.frames.</p>
+
+<h3>Activity and features</h3>
+
+<p>these are 2 labels (de-codification) tables, <em>Activity</em> containing the labels of activities to be used as value of the files Activity, and <em>features</em> that contains the names of the &ldquo;columns&rdquo; of the measures.</p>
+
+<pre><code class="r"># Activity
+setwd(&quot;C:/Laurins/Safari_Downloads/00. AI-BI-DataManing-MachineLearning/__3.Getting.and.Cleaning.Data/3.Project/wk3/UCI HAR Dataset&quot;)
+    Activity_Labels &lt;- read.table(file=&quot;activity_labels.txt&quot;, , nrows=5)
+    tmp_act &lt;- paste(Activity_Labels[, 1], Activity_Labels[, 2], sep=&quot;.&quot;)
+    Activity_Labels &lt;- cbind(Activity_Labels, tmp_act)
+    names(Activity_Labels) &lt;- c(&quot;Activity_code&quot;, &quot;Activity_Name&quot;, &quot;Activity&quot;)
+                remove(tmp_act) 
+                # Both because my PC is small 
+                #   and I like to avoid reading temporary tables by mistake, 
+                #   I try to get rid of object not useful any longer
+# features
+    features &lt;- read.table(file=&quot;features.txt&quot;, as.is=TRUE , nrows=5)
+</code></pre>
+
+<p>note on <strong><em>remove()</em></strong><br/>
+You will notice I use heavy the function<br/>
+<em>remove(my.data.frame)</em>
+in order to try to get rid of object not useful any longer. This both because </p>
+
+<ul>
+<li>I have a small PC, I am trying to keep memory available</li>
+<li>second (and more important) I like to avoid (reading) temporary tables by mistake<br/></li>
+</ul>
+
+<h3>Train and Test</h3>
+
+<p>The actual data has been devided in 2 parts, ahead we get it. These 2 parts are Train and Test. This is a common procedure to prepare an analysis using the Traning part and then checking the performance of the analysis using only the Test part.<br/>
+At the moment we are not interested into this split, though we carry on the information about what are the raws related to train and test.</p>
+
+<p>For each block we read 3 tables, containing info about </p>
+
+<ul>
+<li>Subject_&hellip; (number identifying a person, though names are not given)</li>
+<li>y_&hellip; Activity (kind of activity done by the person, there are 6 types)</li>
+<li>x_&hellip; a lot of measures taken<br/></li>
+</ul>
+
+<pre><code class="r"># Train
+    subject_train &lt;- read.table(file=&quot;train/subject_train.txt&quot;, nrows=5)
+
+    raw_y_train       &lt;- read.table(file=&quot;train/y_train.txt&quot;, nrows=5)
+    temp_train &lt;- merge(x=Activity_Labels, y=raw_y_train, 
+                        by.x=&quot;Activity_code&quot;, by.y=&quot;V1&quot;)
+    y_train &lt;- subset(x=temp_train, select=-c(Activity_code, Activity_Name))
+    remove(raw_y_train, temp_train)
+    names(y_train) &lt;- c(&quot;Activity&quot;)
+
+    x_train       &lt;- read.table(file=&quot;train/x_train.txt&quot;, nrows=5)     
+# Test
+    subject_test &lt;- read.table(file=&quot;test/subject_test.txt&quot;, nrows=5)
+
+    raw_y_test   &lt;- read.table(file=&quot;test/y_test.txt&quot;, nrows=5)
+    temp_test &lt;- merge(x=Activity_Labels, y=raw_y_test, 
+                       by.x=&quot;Activity_code&quot;, by.y=&quot;V1&quot;)
+    y_test &lt;- subset(x=temp_test, select=-c(Activity_code, Activity_Name))
+    names(y_test) &lt;- c(&quot;Activity&quot;)
+    remove(raw_y_test, temp_test)
+
+    x_test       &lt;- read.table(file=&quot;test/x_test.txt&quot;, nrows=5)      
+</code></pre>
+
+<h2>Getting columns names containing mean() and std(), for latter use</h2>
+
+<p>I prepare 2 &ldquo;lists&rdquo; (actually they are data.frames) containing all the column names for the &ldquo;Base Table&rdquo; (the one we will get the 2 final resulting datesets/files)
+These lists are going to be used for putting the right names to the datasets headers and also to filter out the measures (columns) we are not interested.</p>
+
+<ul>
+<li><strong>features_all</strong>: all features, in the proper order accordlying to the basetable</li>
+<li><strong>features_OK</strong> : names of measure require (to keep in the final result)<br/></li>
+</ul>
+
+<pre><code class="r">    features_all &lt;-  features    
+    features_all [, 1] &lt;- features_all [, 1] +3
+    # features_all: all features, in the proper order accordlying to the basetable
+    features_all &lt;- rbind(c(1, &quot;flagTrainTest&quot;), c(2, &quot;Subject&quot;)
+                          , c(3, &quot;Activity&quot;), features_all)       
+    list_indx_OK &lt;- sort(unique(union((grep(&quot;mean&quot;, features$V2))
+                                      ,( grep(c(&quot;std&quot;), features$V2)))))
+    indexes_all_features &lt;- features[, 1]
+    features_OK &lt;- features[list_indx_OK, ]
+    features_OK[, 1] &lt;- features_OK[, 1] + 3
+    # features_OK : names of measure require (to keep in the final result)
+    features_OK &lt;- rbind(c(1, &quot;flagTrainTest&quot;), c(2, &quot;Subject&quot;), c(3, &quot;Activity&quot;), features_OK)
+</code></pre>
+
+<h2>Merges the training and the test sets to create one data set.</h2>
+
+<p>Put together train and test to abtain the &ldquo;base Table&rdquo;, with all data we need to get the 2 final steps (and extracted files).
+On the way I fill up a column flagTrainTest that keep tract of whether the raw belogs to the train or to the test block.</p>
+
+<pre><code class="r"># Train
+    # before merge prepare a column &quot;Subject&quot; telling whether it is train/test data
+    flagTrainTest &lt;- rep(&quot;train&quot;, nrow(y_train))
+    names(subject_train) &lt;- c(&quot;Subject&quot;)
+    Train_full &lt;- cbind(flagTrainTest,subject_train,y_train,x_train) ; remove(flagTrainTest)
+# Test
+    flagTrainTest &lt;- rep(&quot;test&quot;, nrow(y_test))
+    names(subject_test) &lt;- c(&quot;Subject&quot;)
+    Test_full &lt;- cbind(flagTrainTest,  subject_test, y_test, x_test)
+# Train + Test
+    dataFull &lt;- rbind (Train_full, Test_full)
+    remove(Train_full,Test_full,flagTrainTest,x_test,x_train,y_test
+           ,y_train,subject_train,subject_test)
+</code></pre>
+
+<h2>Result 1st.</h2>
+
+<h3>Dataset only the measurements on the mean and standard deviation for each measurement.</h3>
+
+<p>We work on a copy of <strong>dataFull</strong>, our &ldquo;base table&rdquo;, this because we need it unchanged.
+We fix names of columns, keep only columns required by assignment
+Save the result data.frame into a file txt.</p>
+
+<pre><code class="r">    # let&#39;s keep unchanged dataFull for next steps
+    tmp_Only_mean_std &lt;- dataFull 
+
+    # put right name into the data.frame, i.e. &quot;V1&quot; --&gt; &quot;tBodyAcc-mean()-X&quot;
+    names(tmp_Only_mean_std) &lt;- features_all[, 2] # force the actual features names
+
+    # keep only &quot;good&quot; vars
+    df_Only_mean_std &lt;- subset(x=tmp_Only_mean_std, select=features_OK[, 2] )  
+                        remove(tmp_Only_mean_std) 
+    # save 1st dataset as txt files
+    write.table(x=df_Only_mean_std, file=&quot;df_Only_mean_std.txt&quot;)
+</code></pre>
+
+<h2>Result 2nd.</h2>
+
+<h3>A second, independent tidy data set with the average of each variable for each activity and each subject.</h3>
+
+<p>Once more from <em>dataFull</em>, our &ldquo;base table&rdquo;, we <strong><em>summarize</em></strong> with key <strong><em>flagTrainTest</em></strong>, <strong><em>Subject</em></strong>, <strong><em>Activity</em></strong>.<br/>
+Manage columns names, keep only columns required.
+Save the result data.frame into a file txt.</p>
+
+<pre><code class="r">    tmp_mean &lt;- aggregate (cbind(V1,V2,V3,V4,V5,V6,V7,V8,V9,V10,V11,V12,V13,V14,V15,V16,V17,V18,V19,V20,V21,V22,V23,V24,V25,V26,V27,V28,V29,V30,V31,V32,V33,V34,V35,V36,V37,V38,V39,V40,V41,V42,V43,V44,V45,V46,V47,V48,V49,V50,V51,V52,V53,V54,V55,V56,V57,V58,V59,V60,V61,V62,V63,V64,V65,V66,V67,V68,V69,V70,V71,V72,V73,V74,V75,V76,V77,V78,V79,V80,V81,V82,V83,V84,V85,V86,V87,V88,V89,V90,V91,V92,V93,V94,V95,V96,V97,V98,V99,V100,V101,V102,V103,V104,V105,V106,V107,V108,V109,V110,V111,V112,V113,V114,V115,V116,V117,V118,V119,V120,V121,V122,V123,V124,V125,V126,V127,V128,V129,V130,V131,V132,V133,V134,V135,V136,V137,V138,V139,V140,V141,V142,V143,V144,V145,V146,V147,V148,V149,V150,V151,V152,V153,V154,V155,V156,V157,V158,V159,V160,V161,V162,V163,V164,V165,V166,V167,V168,V169,V170,V171,V172,V173,V174,V175,V176,V177,V178,V179,V180,V181,V182,V183,V184,V185,V186,V187,V188,V189,V190,V191,V192,V193,V194,V195,V196,V197,V198,V199,V200,V201,V202,V203,V204,V205,V206,V207,V208,V209,V210,V211,V212,V213,V214,V215,V216,V217,V218,V219,V220,V221,V222,V223,V224,V225,V226,V227,V228,V229,V230,V231,V232,V233,V234,V235,V236,V237,V238,V239,V240,V241,V242,V243,V244,V245,V246,V247,V248,V249,V250,V251,V252,V253,V254,V255,V256,V257,V258,V259,V260,V261,V262,V263,V264,V265,V266,V267,V268,V269,V270,V271,V272,V273,V274,V275,V276,V277,V278,V279,V280,V281,V282,V283,V284,V285,V286,V287,V288,V289,V290,V291,V292,V293,V294,V295,V296,V297,V298,V299,V300,V301,V302,V303,V304,V305,V306,V307,V308,V309,V310,V311,V312,V313,V314,V315,V316,V317,V318,V319,V320,V321,V322,V323,V324,V325,V326,V327,V328,V329,V330,V331,V332,V333,V334,V335,V336,V337,V338,V339,V340,V341,V342,V343,V344,V345,V346,V347,V348,V349,V350,V351,V352,V353,V354,V355,V356,V357,V358,V359,V360,V361,V362,V363,V364,V365,V366,V367,V368,V369,V370,V371,V372,V373,V374,V375,V376,V377,V378,V379,V380,V381,V382,V383,V384,V385,V386,V387,V388,V389,V390,V391,V392,V393,V394,V395,V396,V397,V398,V399,V400,V401,V402,V403,V404,V405,V406,V407,V408,V409,V410,V411,V412,V413,V414,V415,V416,V417,V418,V419,V420,V421,V422,V423,V424,V425,V426,V427,V428,V429,V430,V431,V432,V433,V434,V435,V436,V437,V438,V439,V440,V441,V442,V443,V444,V445,V446,V447,V448,V449,V450,V451,V452,V453,V454,V455,V456,V457,V458,V459,V460,V461,V462,V463,V464,V465,V466,V467,V468,V469,V470,V471,V472,V473,V474,V475,V476,V477,V478,V479,V480,V481,V482,V483,V484,V485,V486,V487,V488,V489,V490,V491,V492,V493,V494,V495,V496,V497,V498,V499,V500,V501,V502,V503,V504,V505,V506,V507,V508,V509,V510,V511,V512,V513,V514,V515,V516,V517,V518,V519,V520,V521,V522,V523,V524,V525,V526,V527,V528,V529,V530,V531,V532,V533,V534,V535,V536,V537,V538,V539,V540,V541,V542,V543,V544,V545,V546,V547,V548,V549,V550,V551,V552,V553,V554,V555,V556,V557,V558,V559,V560,V561) 
+                            ~ flagTrainTest + Subject + Activity, dataFull, mean)
+
+    names(tmp_mean) &lt;- features_all[, 2]  # force actual features names
+
+    df_Mean_flagTrainTest_Subject_Activity &lt;- subset(x=tmp_mean, select=features_OK[, 2] )  
+                        remove(tmp_mean)
+
+    # save 2nd dataset as txt files
+    write.table(x=df_Mean_flagTrainTest_Subject_Activity
+                  , file=&quot;df_Mean_flagTrainTest_Subject_Activity.txt&quot;)
+
+</code></pre>
+
+<p>The following code confirm that a Subject (person) either belong to the training block or to the test block. This was not given in the description, it my also sound good for the experiment.<br/>
+Important is that the last data.frame ( <strong>df_Mean_flagTrainTest_Subject_Activity</strong> ) rappresent also 
+the average of each variable for each activity and each subject, <strong><em>not matter the falg Tran / Test</em></strong> 
+maybe we chould just save with a different name &ldquo;df_Mean_Subject_Activity&rdquo; and removing the column flagTrainTest.</p>
+
+<pre><code class="r"># This code confirm that a subject either belong to the training block or to the test block.
+    intersect(subject_test$V1, subject_train$V1)
+    sort(union(subject_test$V1, subject_train$V1))
+</code></pre>
+
+</body>
+
+</html>
+
